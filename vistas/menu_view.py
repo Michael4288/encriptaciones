@@ -16,10 +16,10 @@ class AnimatedBackgroundCanvas(ctk.CTkCanvas):
         self.width = event.width
         self.height = event.height
         
-        num_cols = int(self.width / self.font_size)
+        num_cols = int(self.width / self.font_size) if self.font_size else 1
         # Cada columna tiene: [posicion_y, velocidad, caracter]
         self.columns = [
-            [random.randint(-self.height, 0), random.randint(2, 6), random.choice(self.symbols)] 
+            [random.randint(-self.height if self.height > 0 else -500, 0), random.randint(2, 6), random.choice(self.symbols)] 
             for _ in range(num_cols)
         ]
 
@@ -42,11 +42,10 @@ class AnimatedBackgroundCanvas(ctk.CTkCanvas):
             y = self.columns[i][0]
             char = self.columns[i][2]
 
-            # Dibuja el carácter con un tono tenue para no oscurecer la interfaz
             self.create_text(
                 x, y, 
                 text=char, 
-                fill="#1e3a8a",  # Azul tenue criptográfico (puedes usar #15803d para verde matrix)
+                fill="#1e3a8a",  # Azul tenue criptográfico
                 font=("Courier", self.font_size, "bold"), 
                 anchor="nw"
             )
@@ -55,7 +54,7 @@ class AnimatedBackgroundCanvas(ctk.CTkCanvas):
             self.columns[i][0] += self.columns[i][1]
 
             # Reiniciar al llegar abajo
-            if self.columns[i][0] > self.height:
+            if self.columns[i][0] > getattr(self, 'height', 600):
                 self.columns[i][0] = random.randint(-50, 0)
                 self.columns[i][1] = random.randint(2, 6)
                 self.columns[i][2] = random.choice(self.symbols)
@@ -78,7 +77,7 @@ class MenuView(ctk.CTkFrame):
         self.bg_canvas.place(relx=0, rely=0, relwidth=1, relheight=1)
         self.bg_canvas.start_animation()
 
-        # 2. Contenedor de Interfaz (superpuesto con fondo transparente)
+        # 2. Contenedor de Interfaz
         content_frame = ctk.CTkFrame(self, fg_color="transparent")
         content_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
 
@@ -88,7 +87,7 @@ class MenuView(ctk.CTkFrame):
             font=ctk.CTkFont(size=24, weight="bold"),
             text_color="#ffffff"
         )
-        lbl_title.pack(pady=(30, 10))
+        lbl_title.pack(pady=(20, 5))
 
         lbl_subtitle = ctk.CTkLabel(
             content_frame, 
@@ -96,26 +95,31 @@ class MenuView(ctk.CTkFrame):
             font=ctk.CTkFont(size=13),
             text_color="#9ca3af"
         )
-        lbl_subtitle.pack(pady=(0, 20))
+        lbl_subtitle.pack(pady=(0, 10))
 
-        # Grid de Tarjetas
-        cards_frame = ctk.CTkFrame(content_frame, fg_color="transparent")
-        cards_frame.pack(expand=True, fill="both", padx=30, pady=10)
+        # 3. Grid de Tarjetas dentro de un CTkScrollableFrame
+        cards_frame = ctk.CTkScrollableFrame(
+            content_frame, 
+            fg_color="transparent",
+            scrollbar_button_color="#1f538d",
+            scrollbar_button_hover_color="#2563eb"
+        )
+        cards_frame.pack(expand=True, fill="both", padx=20, pady=(5, 15))
+
+        # Configurar 3 columnas adaptables para el scrollable frame
+        for i in range(3):
+            cards_frame.grid_columnconfigure(i, weight=1)
 
         col, row = 0, 0
         for key, cipher in self.algorithms.items():
             card = self.create_card(cards_frame, key, cipher)
-            card.grid(row=row, column=col, padx=15, pady=15, sticky="nsew")
+            card.grid(row=row, column=col, padx=12, pady=12, sticky="nsew")
             col += 1
             if col > 2:
                 col = 0
                 row += 1
 
-        for i in range(3):
-            cards_frame.grid_columnconfigure(i, weight=1)
-
     def create_card(self, parent, key, cipher):
-        # Tarjeta con fondo oscuro semi-sólido para contrastar con la animación
         card = ctk.CTkFrame(
             parent, 
             corner_radius=15, 
@@ -124,21 +128,21 @@ class MenuView(ctk.CTkFrame):
             fg_color="#1e1e1e"
         )
 
-        ctk.CTkLabel(card, text=cipher.icon_symbol, font=ctk.CTkFont(size=45)).pack(pady=(20, 5))
-        ctk.CTkLabel(card, text=cipher.name, font=ctk.CTkFont(size=17, weight="bold")).pack(pady=5)
+        icon_text = getattr(cipher, 'icon_symbol', '🔐')
+        ctk.CTkLabel(card, text=icon_text, font=ctk.CTkFont(size=40)).pack(pady=(15, 5))
+        ctk.CTkLabel(card, text=cipher.name, font=ctk.CTkFont(size=16, weight="bold")).pack(pady=5)
         ctk.CTkLabel(
             card, text=cipher.description, wraplength=190, 
-            font=ctk.CTkFont(size=12), text_color="#9ca3af"
-        ).pack(pady=5, padx=15)
+            font=ctk.CTkFont(size=11), text_color="#9ca3af"
+        ).pack(pady=5, padx=15, fill="both", expand=True)
 
         ctk.CTkButton(
             card, text="Explorar ➔", command=lambda k=key: self.on_select(k)
-        ).pack(pady=(15, 20))
+        ).pack(pady=(10, 15))
 
         return card
 
     def destroy(self):
-        # Detener animación antes de destruir la vista para liberar recursos
         if hasattr(self, 'bg_canvas'):
             self.bg_canvas.stop_animation()
         super().destroy()

@@ -7,7 +7,7 @@ from encripts.polybios import PolybiosCipher
 from encripts.columnar_transposition import ColumnarTranspositionCipher
 from encripts.groups_transposition import PermutationCipher
 from encripts.series_transposition import SelectiveSeriesCipher
-
+from encripts.additive import AdditiveCipher
 # Views
 from vistas.groups_transposition import PermutationWorkspaceView
 from vistas.menu_view import MenuView
@@ -16,6 +16,7 @@ from vistas.vigenere_view import VigenereWorkspaceView
 from vistas.polybios_view import PolybiosWorkspaceView
 from vistas.columnar_view import ColumnarWorkspaceView
 from vistas.series_transposition_view import SeriesWorkspaceView
+from vistas.additive_view import AdditiveWorkspaceView
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -33,7 +34,8 @@ class MainApplication(ctk.CTk):
             "polybios": PolybiosCipher(),
             "columnar": ColumnarTranspositionCipher(),  
             "permutation": PermutationCipher(),
-            "series": SelectiveSeriesCipher()  
+            "series": SelectiveSeriesCipher(),
+            "additive": AdditiveCipher()  
         }
 
         self.container = ctk.CTkFrame(self, corner_radius=0)
@@ -76,6 +78,10 @@ class MainApplication(ctk.CTk):
             )
         elif key == "series":
             self.current_view = SeriesWorkspaceView(
+                self.container, self.algorithms[key], self.show_menu
+        )
+        elif key == "additive":
+            self.current_view = AdditiveWorkspaceView(
                 self.container, self.algorithms[key], self.show_menu
         )
         self.current_view.pack(fill="both", expand=True)
