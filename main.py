@@ -4,12 +4,18 @@ import customtkinter as ctk
 from encripts.caesar import CaesarCipher
 from encripts.vigenere import VigenereCipher
 from encripts.polybios import PolybiosCipher
+from encripts.columnar_transposition import ColumnarTranspositionCipher
+from encripts.groups_transposition import PermutationCipher
+from encripts.series_transposition import SelectiveSeriesCipher
 
 # Views
+from vistas.groups_transposition import PermutationWorkspaceView
 from vistas.menu_view import MenuView
 from vistas.caesar_view import CaesarWorkspaceView
 from vistas.vigenere_view import VigenereWorkspaceView
 from vistas.polybios_view import PolybiosWorkspaceView
+from vistas.columnar_view import ColumnarWorkspaceView
+from vistas.series_transposition_view import SeriesWorkspaceView
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -24,7 +30,10 @@ class MainApplication(ctk.CTk):
         self.algorithms = {
             "caesar": CaesarCipher(),
             "vigenere": VigenereCipher(),
-            "polybios": PolybiosCipher()
+            "polybios": PolybiosCipher(),
+            "columnar": ColumnarTranspositionCipher(),  
+            "permutation": PermutationCipher(),
+            "series": SelectiveSeriesCipher()  
         }
 
         self.container = ctk.CTkFrame(self, corner_radius=0)
@@ -57,7 +66,18 @@ class MainApplication(ctk.CTk):
             self.current_view = PolybiosWorkspaceView(
                 self.container, self.algorithms[key], self.show_menu
             )
-
+        elif key == "columnar":
+            self.current_view = ColumnarWorkspaceView(
+                self.container, self.algorithms[key], self.show_menu
+            )
+        elif key == "permutation":
+            self.current_view = PermutationWorkspaceView(
+                self.container, self.algorithms[key], self.show_menu
+            )
+        elif key == "series":
+            self.current_view = SeriesWorkspaceView(
+                self.container, self.algorithms[key], self.show_menu
+        )
         self.current_view.pack(fill="both", expand=True)
 
 if __name__ == "__main__":

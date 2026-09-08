@@ -44,8 +44,8 @@ class PolybiosWorkspaceView(ctk.CTkFrame):
         grid_frame = ctk.CTkFrame(content_frame, fg_color="#1a1a1a")
         grid_frame.pack(side="left", fill="both", expand=True, padx=15, pady=15)
 
-        for r in range(5):
-            for c in range(5):
+        for r in range(6):
+            for c in range(6):
                 letter = self.cipher.grid[r][c]
                 lbl = ctk.CTkLabel(
                     grid_frame, text=letter, font=ctk.CTkFont(size=18, weight="bold"),
@@ -59,7 +59,7 @@ class PolybiosWorkspaceView(ctk.CTkFrame):
 
         ctk.CTkLabel(result_frame, text="Coordenadas Salida:", font=ctk.CTkFont(size=14)).pack(pady=10)
         self.lbl_result = ctk.CTkLabel(
-            result_frame, text="", font=ctk.CTkFont(size=24, weight="bold"), text_color="#3B82F6"
+            result_frame, text="", font=ctk.CTkFont(size=12, weight="bold"), text_color="#3B82F6"
         )
         self.lbl_result.pack(pady=20)
 
