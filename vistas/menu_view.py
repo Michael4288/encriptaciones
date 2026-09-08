@@ -83,7 +83,7 @@ class MenuView(ctk.CTkFrame):
 
         lbl_title = ctk.CTkLabel(
             content_frame, 
-            text="Plataforma Educativa de Encriptación", 
+            text="Encriptación, Primer parcial", 
             font=ctk.CTkFont(size=24, weight="bold"),
             text_color="#ffffff"
         )

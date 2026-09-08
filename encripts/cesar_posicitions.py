@@ -1,21 +1,21 @@
 from .base import BaseCipher
 
-class AdditiveCipher(BaseCipher):
-    name = "Cifrado por Adición"
-    description = "Sustitución monográmica aditiva. Suma un valor clave K al índice alfabético de cada letra usando aritmética modular (C = P + K mod N)."
-    icon_symbol = "➕"
+class CaesarPositionsCipher(BaseCipher):
+    name = "César con Posiciones"
+    description = "Cifrado por desplazamiento alfabético con soporte explícito de dirección (cifrado/descifrado) y cálculo modular de posiciones."
+    icon_symbol = "🔄"
 
     def __init__(self):
-        self.alphabet = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+        self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    def encrypt_steps(self, text: str, key_str: str):
+    def encrypt_steps(self, text: str, shift_str: str, descifrado: bool = False):
         text = text.upper()
-        
         try:
-            k = int(key_str)
+            shift = int(shift_str)
         except ValueError:
-            k = 5 
+            shift = 3  # Valor por defecto si no es entero válido
 
+        actual_shift = -shift if descifrado else shift
         n = len(self.alphabet)
         steps = []
         result = []
@@ -23,19 +23,19 @@ class AdditiveCipher(BaseCipher):
         for char in text:
             if char in self.alphabet:
                 p_idx = self.alphabet.index(char)
-                c_idx = (p_idx + k) % n
+                c_idx = (p_idx + actual_shift) % n
                 new_char = self.alphabet[c_idx]
-                
                 result.append(new_char)
 
+                action_str = "Descifrado" if descifrado else "Cifrado"
                 steps.append({
                     'char': char,
                     'p_idx': p_idx,
-                    'k': k,
+                    'shift': actual_shift,
                     'c_idx': c_idx,
                     'mod': n,
                     'new_char': new_char,
-                    'explanation': f"'{char}' (Pos {p_idx}) ➔ ({p_idx} + {k}) mod {n} = {c_idx} ➔ '{new_char}'",
+                    'explanation': f"[{action_str}] '{char}' (Pos {p_idx}) ➔ ({p_idx} {'+' if actual_shift>=0 else ''}{actual_shift}) mod {n} = Pos {c_idx} ➔ '{new_char}'",
                     'current_result': "".join(result)
                 })
             else:
@@ -43,11 +43,11 @@ class AdditiveCipher(BaseCipher):
                 steps.append({
                     'char': char,
                     'p_idx': None,
-                    'k': k,
+                    'shift': actual_shift,
                     'c_idx': None,
                     'mod': n,
                     'new_char': char,
-                    'explanation': f"'{char}' no está en el alfabeto ➔ Se mantiene igual",
+                    'explanation': f"'{char}' no está en el alfabeto (ABC) ➔ Se conserva intacto",
                     'current_result': "".join(result)
                 })
 

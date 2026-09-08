@@ -8,6 +8,9 @@ from encripts.columnar_transposition import ColumnarTranspositionCipher
 from encripts.groups_transposition import PermutationCipher
 from encripts.series_transposition import SelectiveSeriesCipher
 from encripts.additive import AdditiveCipher
+from encripts.Francmassion import FrancmasonCipher
+from encripts.cesar_posicitions import CaesarPositionsCipher
+from encripts.cesar_wkey import CaesarKeyCipher
 # Views
 from vistas.groups_transposition import PermutationWorkspaceView
 from vistas.menu_view import MenuView
@@ -17,6 +20,9 @@ from vistas.polybios_view import PolybiosWorkspaceView
 from vistas.columnar_view import ColumnarWorkspaceView
 from vistas.series_transposition_view import SeriesWorkspaceView
 from vistas.additive_view import AdditiveWorkspaceView
+from vistas.franccmassion_view import FrancmasonWorkspaceView
+from vistas.cesar_positicions_view import CaesarPositionsWorkspaceView
+from vistas.cesar_wkey import CaesarKeyWorkspaceView
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -35,7 +41,10 @@ class MainApplication(ctk.CTk):
             "columnar": ColumnarTranspositionCipher(),  
             "permutation": PermutationCipher(),
             "series": SelectiveSeriesCipher(),
-            "additive": AdditiveCipher()  
+            "additive": AdditiveCipher(), 
+            "francmassion": FrancmasonCipher(),
+            "caesar_positions": CaesarPositionsCipher(),
+            "caesar_wkey": CaesarKeyCipher(),
         }
 
         self.container = ctk.CTkFrame(self, corner_radius=0)
@@ -84,6 +93,20 @@ class MainApplication(ctk.CTk):
             self.current_view = AdditiveWorkspaceView(
                 self.container, self.algorithms[key], self.show_menu
         )
+        elif key == "francmassion":
+            self.current_view = FrancmasonWorkspaceView(
+                self.container, self.algorithms[key], self.show_menu
+        )
+        elif key == "caesar_positions":
+            self.current_view = CaesarPositionsWorkspaceView(
+                self.container, self.algorithms[key], self.show_menu
+        )
+        elif key == "caesar_wkey":
+            self.current_view = CaesarKeyWorkspaceView(
+                self.container, self.algorithms[key], self.show_menu
+        )
+        else:
+            raise ValueError(f"Algoritmo desconocido: {key}")
         self.current_view.pack(fill="both", expand=True)
 
 if __name__ == "__main__":
