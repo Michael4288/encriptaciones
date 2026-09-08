@@ -1,9 +1,9 @@
 import customtkinter as ctk
 
 # Ciphers
-from ciphers.caesar import CaesarCipher
-from ciphers.vigenere import VigenereCipher
-from ciphers.polybios import PolybiosCipher
+from encripts.caesar import CaesarCipher
+from encripts.vigenere import VigenereCipher
+from encripts.polybios import PolybiosCipher
 
 # Views
 from vistas.menu_view import MenuView

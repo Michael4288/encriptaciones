@@ -82,7 +82,6 @@ class VigenereWorkspaceView(ctk.CTkFrame):
 
         self.char_cards.clear()
 
-        # Construir columnas alineadas (Texto arriba, Clave abajo)
         key_idx = 0
         for idx, char in enumerate(text):
             card = ctk.CTkFrame(self.cards_container, fg_color="#2b2b2b", corner_radius=6)

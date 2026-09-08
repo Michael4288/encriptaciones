@@ -4,7 +4,7 @@ from typing import List, Dict, Any
 class CaesarCipher(BaseCipher):
     name = "Cifrado César"
     description = "Desplazamiento alfabético clásico basado en una clave numérica."
-    icon_symbol = "🔄"
+    icon_symbol = "Poner img"
 
     def encrypt_steps(self, text: str, key: Any) -> List[Dict[str, Any]]:
         try:

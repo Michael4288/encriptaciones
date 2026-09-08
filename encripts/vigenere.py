@@ -3,14 +3,14 @@ from .base import BaseCipher
 class VigenereCipher(BaseCipher):
     name = "Cifrado Vigenère"
     description = "Cifrado polialfabético usando una palabra clave repetida."
-    icon_symbol = "📊"
+    icon_symbol = "Poner img"
 
     def encrypt_steps(self, text: str, key: str):
         text = text.upper()
         key = str(key).upper().replace(" ", "")
         
         if not key.isalpha():
-            key = "CLAVE"  # Clave por defecto si ingresan números o está vacía
+            key = "Clave"  # Valor por defecto si la clave no es válida
             
         steps = []
         result = []

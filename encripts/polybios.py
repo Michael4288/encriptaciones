@@ -3,16 +3,17 @@ from .base import BaseCipher
 class PolybiosCipher(BaseCipher):
     name = "Cuadrado de Polibio"
     description = "Sustitución monográmica que mapea cada letra a coordenadas en una cuadrícula 5x5."
-    icon_symbol = "📐"
+    icon_symbol = "poner img"
 
     def __init__(self):
         # Matriz 5x5 clásica (I y J comparten casilla)
         self.grid = [
-            ['A', 'B', 'C', 'D', 'E'],
-            ['F', 'G', 'H', 'I', 'K'],
-            ['L', 'M', 'N', 'O', 'P'],
-            ['Q', 'R', 'S', 'T', 'U'],
-            ['V', 'W', 'X', 'Y', 'Z']
+            [' ','1', '2', '3', '4', '5'],
+            ['1','A', 'B', 'C', 'D', 'E'],
+            ['2','F', 'G', 'H', 'I', 'K'],
+            ['3','L', 'M', 'N', 'O', 'P'],
+            ['4','Q', 'R', 'S', 'T', 'U'],
+            ['5','V', 'W', 'X', 'Y', 'Z']
         ]
 
     def encrypt_steps(self, text: str, key: str = ""):

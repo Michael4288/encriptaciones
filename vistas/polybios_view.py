@@ -25,11 +25,8 @@ class PolybiosWorkspaceView(ctk.CTkFrame):
             font=ctk.CTkFont(size=20, weight="bold")
         ).pack(side="left", padx=20)
 
-        # Panel Principal Dividido (Izquierda: Controles/Grid, Derecha: Resultado)
         content_frame = ctk.CTkFrame(self)
         content_frame.pack(fill="both", expand=True, padx=20, pady=10)
-
-        # Controles
         ctrl_frame = ctk.CTkFrame(content_frame)
         ctrl_frame.pack(side="left", fill="y", padx=15, pady=15)
 
@@ -57,7 +54,6 @@ class PolybiosWorkspaceView(ctk.CTkFrame):
                 lbl.grid(row=r, column=c, padx=5, pady=5)
                 self.cell_labels[(r, c)] = lbl
 
-        # Área de Resultado
         result_frame = ctk.CTkFrame(content_frame)
         result_frame.pack(side="right", fill="both", expand=True, padx=15, pady=15)
 
