@@ -3,7 +3,7 @@ from .base import BaseCipher
 class VigenereCipher(BaseCipher):
     name = "Cifrado Vigenère"
     description = "Cifrado polialfabético usando una palabra clave repetida."
-    icon_symbol = "Poner img"
+    icon_symbol = "🏛️"
 
     def encrypt_steps(self, text: str, key: str):
         text = text.upper()

@@ -1,9 +1,9 @@
 from .base import BaseCipher
 
 class PolybiosCipher(BaseCipher):
-    name = "Cuadrado de Polibio"
+    name = "Cifrado por Polybios"
     description = "Sustitución monográmica que mapea cada letra a coordenadas en una cuadrícula 5x5."
-    icon_symbol = "poner img"
+    icon_symbol = "🔲"
 
     def __init__(self):
         # Matriz 5x5 clásica (I y J comparten casilla)
@@ -37,8 +37,8 @@ class PolybiosCipher(BaseCipher):
             for r_idx, row in enumerate(self.grid):
                 for c_idx, val in enumerate(row):
                     if val == char:
-                        r_num = r_idx + 1
-                        c_num = c_idx + 1
+                        r_num = r_idx 
+                        c_num = c_idx 
                         coord_str = f"{r_num}{c_num}"
                         result.append(coord_str)
                         steps.append({

@@ -57,7 +57,7 @@ class PolybiosWorkspaceView(ctk.CTkFrame):
         result_frame = ctk.CTkFrame(content_frame)
         result_frame.pack(side="right", fill="both", expand=True, padx=15, pady=15)
 
-        ctk.CTkLabel(result_frame, text="Coordenadas Salida:", font=ctk.CTkFont(size=14)).pack(pady=10)
+        ctk.CTkLabel(result_frame, text="Coordenadas Salida:", font=ctk.CTkFont(size=20)).pack(pady=8)
         self.lbl_result = ctk.CTkLabel(
             result_frame, text="", font=ctk.CTkFont(size=12, weight="bold"), text_color="#3B82F6"
         )

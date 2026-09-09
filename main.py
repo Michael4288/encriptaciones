@@ -9,7 +9,7 @@ from encripts.groups_transposition import PermutationCipher
 from encripts.series_transposition import SelectiveSeriesCipher
 from encripts.additive import AdditiveCipher
 from encripts.Francmassion import FrancmasonCipher
-from encripts.cesar_posicitions import CaesarPositionsCipher
+from encripts.RailFence import RailFenceCipher
 from encripts.cesar_wkey import CaesarKeyCipher
 # Views
 from vistas.groups_transposition import PermutationWorkspaceView
@@ -21,7 +21,7 @@ from vistas.columnar_view import ColumnarWorkspaceView
 from vistas.series_transposition_view import SeriesWorkspaceView
 from vistas.additive_view import AdditiveWorkspaceView
 from vistas.franccmassion_view import FrancmasonWorkspaceView
-from vistas.cesar_positicions_view import CaesarPositionsWorkspaceView
+from vistas.RailFence_vw import RailFenceWorkspaceView
 from vistas.cesar_wkey import CaesarKeyWorkspaceView
 
 ctk.set_appearance_mode("Dark")
@@ -31,20 +31,20 @@ class MainApplication(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("CriptoViz - Entorno Educativo")
+        self.title("CRIPTO - Primer Parcial")
         self.geometry("980x680")
 
         self.algorithms = {
+            "francmassion": FrancmasonCipher(),
             "caesar": CaesarCipher(),
+            "caesar_wkey": CaesarKeyCipher(),
             "vigenere": VigenereCipher(),
-            "polybios": PolybiosCipher(),
+            "railfence": RailFenceCipher(),
             "columnar": ColumnarTranspositionCipher(),  
             "permutation": PermutationCipher(),
             "series": SelectiveSeriesCipher(),
             "additive": AdditiveCipher(), 
-            "francmassion": FrancmasonCipher(),
-            "caesar_positions": CaesarPositionsCipher(),
-            "caesar_wkey": CaesarKeyCipher(),
+            "polybios": PolybiosCipher()
         }
 
         self.container = ctk.CTkFrame(self, corner_radius=0)
@@ -97,8 +97,8 @@ class MainApplication(ctk.CTk):
             self.current_view = FrancmasonWorkspaceView(
                 self.container, self.algorithms[key], self.show_menu
         )
-        elif key == "caesar_positions":
-            self.current_view = CaesarPositionsWorkspaceView(
+        elif key == "railfence":
+            self.current_view = RailFenceWorkspaceView(
                 self.container, self.algorithms[key], self.show_menu
         )
         elif key == "caesar_wkey":

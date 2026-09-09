@@ -1,7 +1,7 @@
 from .base import BaseCipher
 
 class PermutationCipher(BaseCipher):
-    name = "Permutación por Bloques"
+    name = "Cifrado de transposición por grupos"
     description = "Cifrado por transposición que divide el texto en bloques de tamaño N y permuta las posiciones internas según una clave numérica."
     icon_symbol = "🧩"
 

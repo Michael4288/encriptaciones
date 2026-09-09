@@ -1,7 +1,7 @@
 from .base import BaseCipher
 
 class FrancmasonCipher(BaseCipher):
-    name = "Cifrado Francmasón (Pigpen)"
+    name = "Cifrado Francmasón"
     description = "Sustitución monográmica geométrica que reemplaza letras por símbolos según cuadrículas de cerciorado con o sin punto."
     icon_symbol = "📐"
 

@@ -1,7 +1,7 @@
 from .base import BaseCipher
 
 class SelectiveSeriesCipher(BaseCipher):
-    name = "Transposición por Series"
+    name = "Cifrado de transposición por Series"
     description = "Cifrado que extrae los caracteres de posiciones específicas (primos, pares, impares, múltiplos o personalizada) y agrupa el resto."
     icon_symbol = "🔢"
 

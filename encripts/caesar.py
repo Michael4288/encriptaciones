@@ -2,9 +2,9 @@ from .base import BaseCipher
 from typing import List, Dict, Any
 
 class CaesarCipher(BaseCipher):
-    name = "Cifrado César"
+    name = "Cifrado César con posiciónes"
     description = "Desplazamiento alfabético clásico basado en una clave numérica."
-    icon_symbol = "Poner img"
+    icon_symbol = "🔐"
 
     def encrypt_steps(self, text: str, key: Any) -> List[Dict[str, Any]]:
         try:

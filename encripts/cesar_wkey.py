@@ -1,7 +1,7 @@
 from .base import BaseCipher
 
 class CaesarKeyCipher(BaseCipher):
-    name = "César con Clave"
+    name = "Cifrado de César con Clave"
     description = "Sustitución polialfabética mediante una clave alfabética. El desplazamiento de cada letra depende de la posición alfabética del carácter correspondiente de la clave."
     icon_symbol = "🔑"
 

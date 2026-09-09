@@ -1,7 +1,7 @@
 from .base import BaseCipher
 
 class ColumnarTranspositionCipher(BaseCipher):
-    name = "Transposición Columnar"
+    name = "Cifrado de transposición por columnas"
     description = "Cifrado por transposición que reordena los caracteres escribiéndolos en una cuadrícula por filas y leyéndolos por columnas."
     icon_symbol = "🔀"
 

@@ -137,7 +137,7 @@ class MenuView(ctk.CTkFrame):
         ).pack(pady=5, padx=15, fill="both", expand=True)
 
         ctk.CTkButton(
-            card, text="Explorar ➔", command=lambda k=key: self.on_select(k)
+            card, text="Iniciar ➔", command=lambda k=key: self.on_select(k)
         ).pack(pady=(10, 15))
 
         return card
